@@ -73,4 +73,11 @@ function preserve_admin_language_in_admin_bar($mofile, $domain) {
   return $mofile;
 
 }
-add_filter('load_textdomain_mofile', 'preserve_admin_language_in_admin_bar', 10, 2);
+
+add_action('init', function() {
+  if (function_exists('is_user_logged_in')){
+    if (is_user_logged_in()) {
+      add_filter('load_textdomain_mofile', 'preserve_admin_language_in_admin_bar', 10, 2);
+    }
+  }
+});
